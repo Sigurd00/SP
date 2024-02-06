@@ -106,7 +106,7 @@ void exercise4(){
 // End region -- exercise 4
 
 // Region -- exercise 5
-void gen_mt19937() {
+vector<double> gen_mt19937() {
     // Seed for random number generator
     std::random_device rd;
     // Initialize Mersenne Twister engine
@@ -125,11 +125,39 @@ void gen_mt19937() {
     for (int i = 0; i < numRandomNumbers; ++i) {
         randomNumbers.push_back(dist(gen));
     }
+    return randomNumbers;
 }
+
+void bench_mt19937() { gen_mt19937(); }
+
+uint32_t lehmerPRNG(uint32_t seed) {
+    //Yoinked from the page
+    static constexpr uint32_t a = 16807;
+    static constexpr uint32_t m = 2147483647; // 2^31 - 1
+
+    return (a * seed) % m;
+}
+
+vector<double> gen_lehmerPRNG() {
+    // Number of random numbers to generate
+    const int numRandomNumbers = 10000000;
+
+    // Vector to store the random numbers
+    vector<double> randomNumbers;
+    randomNumbers.reserve(numRandomNumbers);
+
+    for (int i = 0; i < numRandomNumbers; ++i) {
+        randomNumbers.push_back(lehmerPRNG(1));
+    }
+    return randomNumbers;
+}
+
+void bench_lehmerPRNG() { gen_lehmerPRNG(); }
 
 void exercise5(){
     BenchmarkUtility benchmarks = BenchmarkUtility();
-    benchmarks.bench(gen_mt19937, "mt19937");
+    benchmarks.bench(bench_mt19937, "mt19937");
+    benchmarks.bench(bench_lehmerPRNG, "lehmerPRNG");
     benchmarks.print_benches();
 }
 // End region -- exercise 5
