@@ -18,6 +18,11 @@ private:
 
 class Polyline {
 public:
+//TODO: Brug smart pointers til at implementere copy-on-write
+//TODO: Lav copy/move ctor, assignment op, og detor
+//TODO: Implementer operator bool()
+//TODO: Implementer printing af stream
+//TODO: lav test cases
     int size() const {
         return points.size();
     }
