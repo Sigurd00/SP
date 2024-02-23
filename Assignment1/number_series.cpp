@@ -92,6 +92,63 @@ namespace data_series
         return this->amplitude() > other.amplitude();
     }
 
-    number_series_wrap::number_series_wrap() = default;
+    number_series_wrap::number_series_wrap() {
+        this->ns = std::make_unique<number_series>();
+    }
+
+    number_series_wrap::number_series_wrap(std::initializer_list<int> values) {
+        this->ns = std::make_unique<number_series>(values);
+    }
+
+    void number_series_wrap::add_value(int value) {
+        this->ns->add_value(value);
+    }
+
+    unsigned long number_series_wrap::size() const {
+        return this->ns->size();
+    }
+
+    int number_series_wrap::get_min() const {
+        return this->ns->get_min();
+    };
+
+    int number_series_wrap::get_max() const {
+        return this->ns->get_max();
+    }
+
+    number_series_wrap number_series_wrap::make_random(int size) {
+        return {number_series::make_random(size)};
+    }
+
+    number_series_wrap::number_series_wrap(const number_series& series) {
+        this->ns = std::make_unique<number_series>(series);
+    }
+
+    number_series_wrap::number_series_wrap(const number_series_wrap &other) {
+        this->ns = std::make_unique<number_series>(*other.ns);
+    }
+
+    number_series_wrap &number_series_wrap::operator=(number_series_wrap &&other) noexcept {
+        if (this != &other) {
+            this->ns = std::move(other.ns);
+        }
+        return *this;
+    }
+
+    number_series_wrap number_series_wrap::operator+(const number_series_wrap &other) const {
+        return *this->ns + *other.ns;
+    }
+
+    number_series_wrap& number_series_wrap::operator+=(const number_series_wrap &other) {
+        this->ns = std::make_unique<number_series>(*this->ns += *other.ns);
+        return *this;
+    }
+
+    int number_series_wrap::amplitude() const {
+        return this->ns->amplitude();
+    }
+    bool number_series_wrap::operator<(const data_series::number_series_wrap& other) const {
+        return amplitude() < other.amplitude();
+    }
 
 }  // namespace data_series

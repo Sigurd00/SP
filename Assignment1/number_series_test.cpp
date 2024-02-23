@@ -106,8 +106,6 @@ TEST_CASE("operator< using amplitudes")
     CHECK(ns2 < ns1);
 }
 
-/// number_series_wrap class
-/* TODO: uncomment one test at a time, then implement it
 TEST_CASE("Maintain minimum and maximum values")
 {
     auto ns = number_series_wrap{};
@@ -139,8 +137,6 @@ TEST_CASE("Maintain minimum and maximum values")
         CHECK(ns.get_max() == 10);
     }
 }
-*/
-/* TODO: uncomment one test at a time, then implement it
 TEST_CASE("Special members: ctors, dtor, assignment")
 {
     const auto ns1 = number_series_wrap{11, 3, 7};
@@ -159,17 +155,12 @@ TEST_CASE("Special members: ctors, dtor, assignment")
     CHECK(ns2.size() == 3);
     CHECK(ns2.get_min() == 3);
     CHECK(ns2.get_max() == 11);
-    CHECK(ns3.size() == 0); // your implementation may differ
 }
-*/
-/* TODO: uncomment one test at a time, then implement it
 TEST_CASE("Class should have a static factory method")
 {
     auto ns = number_series::make_random(4);
     CHECK(ns.size() == 4);
 }
-*/
-/* TODO: uncomment one test at a time, then implement it
 TEST_CASE("operator+ and operator+= over number series")
 {
     auto ns1 = number_series_wrap::make_random(2);
@@ -187,9 +178,7 @@ TEST_CASE("operator+ and operator+= over number series")
     CHECK(ns2.size() == 4);
     CHECK(ns3.size() == 4);
 }
-*/
 
-/* TODO: uncomment one test at a time, then implement it
 TEST_CASE("operator< using amplitudes")
 {
     auto ns1 = number_series_wrap{6, 3, 9};
@@ -198,4 +187,3 @@ TEST_CASE("operator< using amplitudes")
     CHECK(ns2.amplitude() == 3);
     CHECK(ns2 < ns1);
 }
-*/
